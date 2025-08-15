@@ -28,9 +28,9 @@ scale_colour_vangogh(
 
 \item{discrete}{whether to use a discrete colour palette}
 
-\item{alpha}{transparency}
+\item{alpha}{Transparency level, a number between 0 and 1.}
 
-\item{reverse}{logical, Reverse the order of the colours?}
+\item{reverse}{Logical, whether to reverse the order of colors.}
 }
 \value{
 A scale_color_vangogh function

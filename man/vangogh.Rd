@@ -2,6 +2,7 @@
 % Please edit documentation in R/vangogh.R
 \docType{package}
 \name{vangogh}
+\alias{vangogh-package}
 \alias{vangogh}
 \title{vangogh}
 \description{
@@ -10,3 +11,16 @@ list of palettes generated from Vincent van Gogh's paintings
 \details{
 list of palettes generated from Vincent van Gogh's paintings
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/cherylisabella/vangogh}
+  \item Report bugs at \url{https://github.com/cherylisabella/vangogh/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Cheryl Isabella \email{cherylisabella@gmail.com}
+
+}
+\keyword{internal}

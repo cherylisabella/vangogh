@@ -19,10 +19,9 @@ scale_fill_vangogh(
 
 \item{discrete}{whether to use a discrete colour palette}
 
-\item{alpha}{The alpha transparency, a number in [0,1], see argument alpha in
-\code{\link[grDevices]{hsv}}.}
+\item{alpha}{Transparency level, a number between 0 and 1.}
 
-\item{reverse}{If TRUE, the direction of the colours is reversed.}
+\item{reverse}{Logical, whether to reverse the order of colours.}
 }
 \value{
 A scale_fill_vangogh function

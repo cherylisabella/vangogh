@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 ```
 
 
-# **Vincent van Gogh Color Palettes** <img align="right" width="170" src="logo.png" >
+# **Vincent van Gogh Color Palettes** <img align="right" width="170" src="man/figures/logo.png" >
 
 The goal of `vangogh` is to provide users with color palettes inspired by a selection of Vincent van Gogh's paintings. These palettes also aim to increase the aesthetic appeal of data plots. Each palette contains 5 handpicked colors and were manually added by hex codes. 
 

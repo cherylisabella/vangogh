@@ -1,0 +1,9 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^README_files$
+^PowerPoint Hex Logo$
+^old_docs$
+^CRAN-SUBMISSION$
+^LICENSE\.md$
+^cran-comments\.md$

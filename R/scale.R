@@ -35,7 +35,8 @@ vangogh_pal <- function(palette = "StarryRhone", alpha = 1, reverse = FALSE) {
 #'
 #' @param ... additional arguments to pass to scale_color_gradientn
 #'
-#' @inheritParams viridis::scale_color_viridis
+#' @param alpha Transparency level, a number between 0 and 1.
+#' @param reverse Logical, whether to reverse the order of colors.
 #'
 #' @importFrom ggplot2 scale_colour_manual
 #'
@@ -75,12 +76,12 @@ scale_colour_vangogh <- scale_color_vangogh
 #'
 #' @param palette Choose from 'vangogh_palettes' list
 #'
-#' @inheritParams viridis::scale_fill_viridis
-#' @inheritParams vangogh_pal
-#'
 #' @param discrete whether to use a discrete colour palette
 #'
 #' @param ... additional arguments to pass to scale_color_gradientn
+#'
+#' @param alpha Transparency level, a number between 0 and 1.
+#' @param reverse Logical, whether to reverse the order of colours.
 #'
 #' @importFrom ggplot2 scale_fill_manual discrete_scale scale_fill_gradientn
 #' @return A scale_fill_vangogh function

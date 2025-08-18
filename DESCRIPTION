@@ -1,6 +1,6 @@
 Package: vangogh
 Title: Vincent van Gogh Colour Palette Generator
-Version: 0.1.0
+Version: 0.1.2
 Authors@R: person(given = "Cheryl", family = "Isabella", role = c("aut", "cre"), email = "cherylisabella@gmail.com")
 Description: Provides ggplot2-compatible colour palettes inspired by Vincent van Gogh's paintings. Each palette contains five colours, manually selected by hexadecimal values.
 License: MIT + file LICENSE
@@ -8,13 +8,8 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Imports: 
-    ggplot2
-Suggests:
-    scales,
-    knitr,
-    rmarkdown,
-    colorspace,
-    colorblindr
+Imports: ggplot2, rlang, methods
+Suggests: scales, knitr, rmarkdown, colorspace, colorblindr, jsonlite
+VignetteBuilder: knitr
 URL: https://github.com/cherylisabella/vangogh
 BugReports: https://github.com/cherylisabella/vangogh/issues

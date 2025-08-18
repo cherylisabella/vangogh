@@ -1,0 +1,128 @@
+---
+title: "Exploring Van Gogh Palettes in R"
+author: "Van Gogh Palette Package"
+output: rmarkdown::html_vignette
+vignette: >
+ %\VignetteIndexEntry{Exploring Van Gogh Palettes}
+ %\VignetteEngine{knitr::rmarkdown}
+ %\VignetteEncoding{UTF-8}
+---
+
+# ------------------------------------------------------------------------------
+# 1. Display a single palette
+# ------------------------------------------------------------------------------
+
+# Visualise a discrete palette
+vangogh::viz_palette("StarryNight")
+
+# Visualise a colorblind-safe palette (\dontrun{} optional)
+# \dontrun{
+vangogh::viz_palette("Cypresses", colorblind = TRUE)
+# }
+
+# ------------------------------------------------------------------------------
+# 2. Generate colorblind-safe versions
+# ------------------------------------------------------------------------------
+
+# Standard palette
+pal_orig <- vangogh::safe_vangogh_palette("StarryNight")
+pal_orig
+
+# Colorblind-safe version (\dontrun{} optional)
+# \dontrun{
+pal_safe <- vangogh::safe_vangogh_palette("StarryNight", colorblind = TRUE)
+pal_safe
+# }
+
+# Compare original vs colorblind palettes (\dontrun{} optional)
+# \dontrun{
+vangogh::compare_palettes(c("StarryNight", "Cypresses"), colorblind = TRUE)
+# }
+
+# ------------------------------------------------------------------------------
+# 3. Discrete vs Continuous palettes
+# ------------------------------------------------------------------------------
+
+# Discrete palettes: fixed number of colors, best for categorical data
+pal_discrete <- vangogh::safe_vangogh_palette("SunflowersMunich", type = "discrete")
+pal_discrete
+
+# Continuous palettes: interpolate to n colors, ideal for gradients
+pal_cont <- vangogh::safe_vangogh_palette("CafeTerrace", type = "continuous", n = 12)
+vangogh::viz_palette("CafeTerrace", type = "continuous", n = 12)
+
+# ------------------------------------------------------------------------------
+# 4. Working with ggplot2
+# ------------------------------------------------------------------------------
+
+# 4a. Discrete color scale
+ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt, color = factor(cyl))) +
+  ggplot2::geom_point(size = 3) +
+  vangogh::scale_color_vangogh("StarryNight") +
+  vangogh::theme_vangogh(base_size = 14) +
+  ggplot2::labs(title = "Discrete Van Gogh Color Scale Example")
+
+# 4b. Continuous color scale
+ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt, color = hp)) +
+  ggplot2::geom_point(size = 3) +
+  vangogh::scale_color_vangogh("Cypresses", discrete = FALSE) +
+  vangogh::theme_vangogh() +
+  ggplot2::labs(title = "Continuous Van Gogh Color Scale Example")
+
+# 4c. Fill scales
+ggplot2::ggplot(diamonds, ggplot2::aes(cut, fill = clarity)) +
+  ggplot2::geom_bar() +
+  vangogh::scale_fill_vangogh("CafeDeNuit") +
+  vangogh::theme_vangogh() +
+  ggplot2::labs(title = "Discrete Fill Example")
+
+# Continuous fill example
+ggplot2::ggplot(diamonds, ggplot2::aes(carat, price, fill = price)) +
+  ggplot2::geom_tile() +
+  vangogh::scale_fill_vangogh("StarryRhone", discrete = FALSE) +
+  vangogh::theme_vangogh() +
+  ggplot2::labs(title = "Continuous Fill Example")
+
+# ------------------------------------------------------------------------------
+# 5. Inspect all palettes programmatically
+# ------------------------------------------------------------------------------
+
+# Get tidy data frame of all palettes
+all_palettes <- vangogh::vangogh_colors()
+head(all_palettes)
+
+# With colorblind adjustment (\dontrun{} optional)
+# \dontrun{
+all_palettes_safe <- vangogh::vangogh_colors(colorblind = TRUE)
+head(all_palettes_safe)
+# }
+
+# List all palette names
+names(vangogh::vangogh_palettes)
+
+# ------------------------------------------------------------------------------
+# 6. Multi-palette comparison visualisation
+# ------------------------------------------------------------------------------
+
+# Compare multiple palettes side-by-side (\dontrun{} optional)
+# \dontrun{
+vangogh::compare_palettes(c("StarryNight", "SunflowersMunich", "CafeTerrace"))
+# }
+
+# ------------------------------------------------------------------------------
+# 7. Additional functions
+# ------------------------------------------------------------------------------
+
+# View detailed palette info
+vangogh::vangogh_palette_info()
+
+# Future features: suggested palettes
+# \dontrun{
+# vangogh::vangogh_suggest(7, colorblind = TRUE)
+# }
+
+# Future features: export palettes
+# \dontrun{
+# vangogh::vangogh_export("palettes.json", colorblind = TRUE)
+# vangogh::vangogh_export("palettes.csv")
+# }

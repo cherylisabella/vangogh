@@ -1,7 +1,6 @@
-# vangogh <img src="man/figures/logo.png" align="right" width="170" />
+# vangogh <img src="man/figures/logo.png" align="right" width="180" />
 
 [![CRAN version](https://www.r-pkg.org/badges/version/vangogh)](https://CRAN.R-project.org/package=vangogh)
-[![R-CMD-check](https://github.com/cherylisabella/vangogh/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/cherylisabella/vangogh/actions/workflows/R-CMD-check.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/vangogh)](https://cran.r-project.org/package=vangogh)

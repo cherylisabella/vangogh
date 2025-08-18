@@ -16,14 +16,28 @@ install.packages("vangogh")
 
 ## Quick Start
 
+### Basic Palette Usage
+
 ```r
 library(vangogh)
 
 # View available palettes
 names(vangogh_palettes)
 
+# Preview a palette
+viz_palette("StarryNight")
+
 # Get colours from a palette
 vangogh_palette("StarryNight")
+
+# Get palette as data frame
+vangogh_colors()
+
+# Use specific number of colours
+vangogh_palette("Irises", n = 3)
+
+# Generate continuous palette
+vangogh_palette("SelfPortrait", type = "continuous", n = 10)
 
 # Use with base R plotting
 plot(1:10, col = vangogh_palette("SelfPortrait"), pch = 19, cex = 2)
@@ -51,19 +65,6 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
 
 ## Essential Functions
 
-### Basic Palette Usage
-
-```r
-# Get a complete palette
-colors <- vangogh_palette("StarryNight")
-
-# Use specific number of colours
-vangogh_palette("Irises", n = 3)
-
-# Generate continuous palette
-vangogh_palette("SelfPortrait", type = "continuous", n = 10)
-```
-
 ### ggplot2 Integration
 
 ```r
@@ -81,6 +82,22 @@ ggplot(mpg, aes(x = class, fill = drv)) +
 ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
   geom_tile() +
   scale_fill_vangogh("Irises", type = "continuous")
+```
+
+### Van Gogh Themes
+
+Apply artistic themes to your plots:
+
+```r
+# Available theme variants: "classic", "light", "dark", "sketch"
+ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
+  geom_point(size = 4) +
+  scale_color_vangogh("Irises") +
+  theme_vangogh("classic")
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point(size = 3, color = "#F4A460") +
+  theme_vangogh("sketch")
 ```
 
 ### Feature Gallery
@@ -127,19 +144,6 @@ ggplot(df3, aes(x, y, color = factor(group))) +
   theme_minimal()</code></pre>
 </div>
 
-### Data Exploration
-
-```r
-# See all available palettes
-names(vangogh_palettes)
-
-# Preview a palette
-viz_palette("StarryNight")
-
-# Get palette as data frame
-vangogh_colors()
-```
-
 ## Advanced Features
 
 ### Palette Analysis and Accessibility
@@ -185,44 +189,6 @@ vangogh_export("my_palettes.json", format = "json", add_metadata = TRUE)
 vangogh_export("my_palettes.csv", format = "csv")
 ```
 
-## ggplot2 Integration
-
-### Colour and Fill Scales
-
-```r
-ggplot(mpg, aes(displ, hwy, color = class)) +
-  geom_point(size = 3) +
-  scale_color_vangogh("StarryNight")
-
-ggplot(mpg, aes(class, fill = drv)) +
-  geom_bar() +
-  scale_fill_vangogh("CafeTerrace")
-```
-
-### Continuous Palettes
-
-```r
-ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
-  geom_tile() +
-  scale_fill_vangogh("StarryNight", type = "continuous")
-```
-
-### Van Gogh Themes
-
-Apply artistic themes to your plots:
-
-```r
-# Available theme variants: "classic", "light", "dark", "sketch"
-ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
-  geom_point(size = 4) +
-  scale_color_vangogh("Irises") +
-  theme_vangogh("classic")
-
-ggplot(mtcars, aes(wt, mpg)) +
-  geom_point(size = 3, color = "#F4A460") +
-  theme_vangogh("sketch")
-```
-
 ## Function Reference
 
 | Function | Description |
@@ -263,4 +229,5 @@ R package version 0.1.2. https://github.com/cherylisabella/vangogh
 Want to contribute? Great! You can:
 - Report bugs or suggest features via [GitHub Issues](https://github.com/cherylisabella/vangogh/issues)  
 - Submit pull requests for improvements
+
 - Add new Van Gogh palettes with proper documentation

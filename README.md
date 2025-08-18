@@ -1,4 +1,4 @@
-# vangogh <img src="man/figures/logo.png" align="right" width="180" />
+# vangogh <img src="man/figures/logo.png" align="right" width="170" />
 
 [![CRAN version](https://www.r-pkg.org/badges/version/vangogh)](https://CRAN.R-project.org/package=vangogh)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -8,12 +8,10 @@
 An R package for painterly colour palettes inspired by Vincent van Gogh's artworks. The `vangogh` package provides ggplot2-compatible colour palettes derived from the artist's most iconic paintings, with tools for accessibility, visualisation, and data export.
 
 ## Installation
-
-You can install the development version from GitHub:
+Install the released version from CRAN:
 
 ```r
-install.packages("remotes")
-remotes::install_github("cherylisabella/vangogh")
+install.packages("vangogh")
 ```
 
 ## Quick Start
@@ -39,126 +37,17 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
 
 ## Available Palettes
 
-### The Starry Night (1889)
+| StarryNight | StarryRhone | SelfPortrait | CafeTerrace | Eglise |
+|---|---|---|---|---|
+| <img src="inst/extdata/paintings/starrynight2.png" height="150"><br> | <img src="inst/extdata/paintings/rhone1.png" height="150"><br> | <img src="inst/extdata/paintings/selfp.png" height="150"><br> | <img src="inst/extdata/paintings/cafeterrace.png" height="150"><br> | <img src="inst/extdata/paintings/eglise.png" height="150"><br> |
 
-<img src="inst/extdata/paintings/starrynight2.png" width="400"/>
+| Irises | SunflowersMunich | SunflowersLondon | Rest | Bedroom |
+|---|---|---|---|---|
+| <img src="inst/extdata/paintings/irises.png" width="120"><br> | <img src="inst/extdata/paintings/sunflowersm.png" height="150"><br> | <img src="inst/extdata/paintings/sunflowersl.png" height="150"><br> | <img src="inst/extdata/paintings/rest.png" height="150"><br> | <img src="inst/extdata/paintings/bedroom.png" height="150"><br> |
 
-```r
-vangogh_palette("StarryNight")
-```
-
-### Starry Night Over the Rhône / La Nuit étoilée (1888)
-
-<img src="inst/extdata/paintings/rhone1.png" width="400"/>
-
-```r
-vangogh_palette("StarryRhone")
-```
-
-### Self-Portrait (1889)
-
-<img src="inst/extdata/paintings/selfp.png" width="400"/>
-
-```r
-vangogh_palette("SelfPortrait")
-```
-
-### Café Terrace at Night (1888)
-
-<img src="inst/extdata/paintings/cafeterrace.png" width="400"/>
-
-```r
-vangogh_palette("CafeTerrace")
-```
-
-### The Church at Auvers (1890)
-
-<img src="inst/extdata/paintings/eglise.png" width="400"/>
-
-```r
-vangogh_palette("Eglise")
-```
-
-### Irises / Les Iris (1889)
-
-<img src="inst/extdata/paintings/irises.png" width="400"/>
-
-```r
-vangogh_palette("Irises")
-```
-
-### Sunflowers - Munich version (1888)
-
-<img src="inst/extdata/paintings/sunflowersm.png" width="400"/>
-
-```r
-vangogh_palette("SunflowersLondon")
-```
-
-### Sunflowers - London version (1888)
-
-<img src="inst/extdata/paintings/sunflowersl.png" width="400"/>
-
-```r
-vangogh_palette("SunflowersLondon")
-```
-
-### Noon – Rest from Work (1889-1890)
-
-<img src="inst/extdata/paintings/rest.png" width="400"/>
-
-```r
-vangogh_palette("Rest")
-```
-
-### Bedroom in Arles / Slaapkamer te Arles (1888)
-
-<img src="inst/extdata/paintings/bedroom.png" width="400"/>
-
-```r
-vangogh_palette("Bedroom")
-```
-
-### The Night Café / Le Café de nuit (1888)
-
-<img src="inst/extdata/paintings/cafedenuit.png" width="400"/>
-
-```r
-vangogh_palette("CafeDeNuit")
-```
-
-### Van Gogh’s Chair (1888)
-
-<img src="inst/extdata/paintings/chaise.png" width="400"/>
-
-```r
-vangogh_palette("Chaise")
-```
-
-### Shoes (1886)
-
-<img src="inst/extdata/paintings/shoes.png" width="400"/>
-
-```r
-vangogh_palette("Shoes")
-```
-
-### Landscape with Houses (1890)
-
-<img src="inst/extdata/paintings/landscape.png" width="400"/>
-
-```r
-vangogh_palette("Landscape")
-```
-
-### Wheat Field with Cypresses (1889)
-
-<img src="inst/extdata/paintings/cypresses.png" width="400"/>
-
-```r
-vangogh_palette("Cypresses")
-```
-
+| CafeDeNuit | Chaise | Shoes | Landscape | Cypresses |
+|---|---|---|---|---|
+| <img src="inst/extdata/paintings/cafedenuit.png" height="150"><br> | <img src="inst/extdata/paintings/chaise.png" height="150"><br> | <img src="inst/extdata/paintings/shoes.png" height="150"><br> | <img src="inst/extdata/paintings/landscape.png" height="150"><br> | <img src="inst/extdata/paintings/cypresses.png" height="150"><br> |
 
 ## Essential Functions
 
@@ -168,7 +57,7 @@ vangogh_palette("Cypresses")
 # Get a complete palette
 colors <- vangogh_palette("StarryNight")
 
-# Use specific number of colors
+# Use specific number of colours
 vangogh_palette("Irises", n = 3)
 
 # Generate continuous palette
@@ -178,7 +67,7 @@ vangogh_palette("SelfPortrait", type = "continuous", n = 10)
 ### ggplot2 Integration
 
 ```r
-# Color scale for categorical data
+# Colour scale for categorical data
 ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
   geom_point(size = 3) +
   scale_color_vangogh("StarryNight")
@@ -193,6 +82,50 @@ ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
   geom_tile() +
   scale_fill_vangogh("Irises", type = "continuous")
 ```
+
+### Feature Gallery
+
+A few example plots using Van Gogh palettes.
+
+#### StarryNight - geombar() Example
+
+<div style="text-align: center; margin-bottom: 30px;">
+  <img src="inst/extdata/plots/barplot_StarryNight.png" height="300"/>
+  <pre><code>df1 <- data.frame(x = letters[1:5], y = sample(1:5))
+ggplot(df1, aes(x, y, fill = x)) +
+  geom_bar(stat = "identity") +
+  scale_fill_vangogh("StarryNight") +
+  theme_minimal()</code></pre>
+</div>
+
+#### SunflowersMunich - geom_point() Example
+
+<div style="text-align: center; margin-bottom: 30px;">
+  <img src="inst/extdata/plots/scatter_SunflowersMunich.png" height="300"/>
+  <pre><code>df2 <- data.frame(
+  x = rnorm(100),
+  y = rnorm(100),
+  group = sample(1:5, 100, replace = TRUE))
+ggplot(df2, aes(x, y, color = factor(group))) +
+  geom_point(size = 3) +
+  scale_color_vangogh("SunflowersMunich") +
+  theme_minimal()</code></pre>
+</div>
+
+
+#### SelfPortrait - geom_line() Example
+
+<div style="text-align: center; margin-bottom: 30px;">
+  <img src="inst/extdata/plots/line_SelfPortrait.png" height="300"/>
+  <pre><code>df3 <- data.frame(
+  x = 1:10,
+  y = cumsum(rnorm(10)),
+  group = rep(1:3, length.out = 10))
+ggplot(df3, aes(x, y, color = factor(group))) +
+  geom_line(linewidth = 1.2) +
+  scale_color_vangogh("SelfPortrait") +
+  theme_minimal()</code></pre>
+</div>
 
 ### Data Exploration
 
@@ -223,7 +156,7 @@ vangogh_palette_info(add_metadata = TRUE)
 # Visualise with colourblind simulation
 viz_palette("StarryNight", colorblind = TRUE)
 
-# Check accessibility across color vision types
+# Check accessibility across colour vision types
 check_palette("StarryNight")
 ```
 

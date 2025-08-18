@@ -4,7 +4,6 @@
 [![R-CMD-check](https://github.com/cherylisabella/vangogh/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/cherylisabella/vangogh/actions/workflows/R-CMD-check.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![Downloads](https://cranlogs.r-pkg.org/badges/vangogh)](https://cran.r-project.org/package=vangogh)
 [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/vangogh)](https://cran.r-project.org/package=vangogh)
 
 An R package for painterly colour palettes inspired by Vincent van Gogh's artworks. The `vangogh` package provides ggplot2-compatible colour palettes derived from the artist's most iconic paintings, with tools for accessibility, visualisation, and data export.
@@ -43,7 +42,7 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
 
 ### The Starry Night (1889)
 
-<img src="inst/extdata/starrynight2.png" width="400"/>
+<img src="inst/extdata/paintings/starrynight2.png" width="400"/>
 
 ```r
 vangogh_palette("StarryNight")
@@ -51,7 +50,7 @@ vangogh_palette("StarryNight")
 
 ### Starry Night Over the Rhône / La Nuit étoilée (1888)
 
-<img src="inst/extdata/rhone1.png" width="400"/>
+<img src="inst/extdata/paintings/rhone1.png" width="400"/>
 
 ```r
 vangogh_palette("StarryRhone")
@@ -59,7 +58,7 @@ vangogh_palette("StarryRhone")
 
 ### Self-Portrait (1889)
 
-<img src="inst/extdata/selfp.png" width="400"/>
+<img src="inst/extdata/paintings/selfp.png" width="400"/>
 
 ```r
 vangogh_palette("SelfPortrait")
@@ -67,7 +66,7 @@ vangogh_palette("SelfPortrait")
 
 ### Café Terrace at Night (1888)
 
-<img src="inst/extdata/cafeterrace.png" width="400"/>
+<img src="inst/extdata/paintings/cafeterrace.png" width="400"/>
 
 ```r
 vangogh_palette("CafeTerrace")
@@ -75,7 +74,7 @@ vangogh_palette("CafeTerrace")
 
 ### The Church at Auvers (1890)
 
-<img src="inst/extdata/eglise.png" width="400"/>
+<img src="inst/extdata/paintings/eglise.png" width="400"/>
 
 ```r
 vangogh_palette("Eglise")
@@ -83,7 +82,7 @@ vangogh_palette("Eglise")
 
 ### Irises / Les Iris (1889)
 
-<img src="inst/extdata/irises.png" width="400"/>
+<img src="inst/extdata/paintings/irises.png" width="400"/>
 
 ```r
 vangogh_palette("Irises")
@@ -91,7 +90,7 @@ vangogh_palette("Irises")
 
 ### Sunflowers - Munich version (1888)
 
-<img src="inst/extdata/sunflowersm.png" width="400"/>
+<img src="inst/extdata/paintings/sunflowersm.png" width="400"/>
 
 ```r
 vangogh_palette("SunflowersLondon")
@@ -99,7 +98,7 @@ vangogh_palette("SunflowersLondon")
 
 ### Sunflowers - London version (1888)
 
-<img src="inst/extdata/sunflowersl.png" width="400"/>
+<img src="inst/extdata/paintings/sunflowersl.png" width="400"/>
 
 ```r
 vangogh_palette("SunflowersLondon")
@@ -107,7 +106,7 @@ vangogh_palette("SunflowersLondon")
 
 ### Noon – Rest from Work (1889-1890)
 
-<img src="inst/extdata/rest.png" width="400"/>
+<img src="inst/extdata/paintings/rest.png" width="400"/>
 
 ```r
 vangogh_palette("Rest")
@@ -115,7 +114,7 @@ vangogh_palette("Rest")
 
 ### Bedroom in Arles / Slaapkamer te Arles (1888)
 
-<img src="inst/extdata/bedroom.png" width="400"/>
+<img src="inst/extdata/paintings/bedroom.png" width="400"/>
 
 ```r
 vangogh_palette("Bedroom")
@@ -123,7 +122,7 @@ vangogh_palette("Bedroom")
 
 ### The Night Café / Le Café de nuit (1888)
 
-<img src="inst/extdata/cafedenuit.png" width="400"/>
+<img src="inst/extdata/paintings/cafedenuit.png" width="400"/>
 
 ```r
 vangogh_palette("CafeDeNuit")
@@ -131,7 +130,7 @@ vangogh_palette("CafeDeNuit")
 
 ### Van Gogh’s Chair (1888)
 
-<img src="inst/extdata/chaise.png" width="400"/>
+<img src="inst/extdata/paintings/chaise.png" width="400"/>
 
 ```r
 vangogh_palette("Chaise")
@@ -139,7 +138,7 @@ vangogh_palette("Chaise")
 
 ### Shoes (1886)
 
-<img src="inst/extdata/shoes.png" width="400"/>
+<img src="inst/extdata/paintings/shoes.png" width="400"/>
 
 ```r
 vangogh_palette("Shoes")
@@ -147,7 +146,7 @@ vangogh_palette("Shoes")
 
 ### Landscape with Houses (1890)
 
-<img src="inst/extdata/landscape.png" width="400"/>
+<img src="inst/extdata/paintings/landscape.png" width="400"/>
 
 ```r
 vangogh_palette("Landscape")
@@ -155,7 +154,7 @@ vangogh_palette("Landscape")
 
 ### Wheat Field with Cypresses (1889)
 
-<img src="inst/extdata/cypresses.png" width="400"/>
+<img src="inst/extdata/paintings/cypresses.png" width="400"/>
 
 ```r
 vangogh_palette("Cypresses")

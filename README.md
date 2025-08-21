@@ -157,9 +157,6 @@ vangogh_palette_info()
 # With HCL colour space data
 vangogh_palette_info(add_metadata = TRUE)
 
-# Visualise with colourblind simulation
-viz_palette("StarryNight", colorblind = TRUE)
-
 # Check accessibility across colour vision types
 check_palette("StarryNight")
 ```
@@ -198,7 +195,7 @@ vangogh_export("my_palettes.csv", format = "csv")
 | `scale_color_vangogh()` | ggplot2 colour scale |
 | `scale_fill_vangogh()` | ggplot2 fill scale |
 | `theme_vangogh()` | Van Gogh-inspired ggplot2 themes |
-| `viz_palette()` | Visualise a palette with optional colourblind simulation |
+| `viz_palette()` | Visualise a palette |
 | `check_palette()` | Comprehensive accessibility check |
 | `compare_palettes()` | Side-by-side palette comparison |
 | `vangogh_suggest()` | Get palette recommendations |
@@ -209,25 +206,16 @@ vangogh_export("my_palettes.csv", format = "csv")
 
 Van Gogh's use of colour was revolutionary, employing vivid hues and bold contrasts to convey emotion and movement. This package aims to bring that same artistic sensibility to data visualisation, while maintaining the technical rigor required for clear, accessible communication of information.
 
-Each palette contains five carefully selected colours derived from the original paintings, balancing aesthetic appeal with practical considerations for data visualisation, including colourblind accessibility.
+Each palette contains five carefully selected colours derived from the original paintings, balancing aesthetic appeal with practical considerations for data visualisation.
 
 ## License
 
 MIT License. See [LICENSE](LICENSE) file for details.
 
-## Citation
-
-To cite the vangogh package in publications, please use:
-
-```
-Lim, C. I. (2022). vangogh: Vincent van Gogh Colour Palette Generator. 
-R package version 0.1.2. https://github.com/cherylisabella/vangogh
-```
-
 ## Contributing
 
 Want to contribute? Great! You can:
+
 - Report bugs or suggest features via [GitHub Issues](https://github.com/cherylisabella/vangogh/issues)  
 - Submit pull requests for improvements
-
 - Add new Van Gogh palettes with proper documentation

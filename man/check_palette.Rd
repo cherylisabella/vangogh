@@ -14,7 +14,7 @@ check_palette(name, type = "discrete", n = NULL)
 \item{n}{Number of colors for continuous palettes}
 }
 \description{
-Uses \code{colorblindr} to simulate common forms of colorblindness.
+Uses \code{colorspace} to simulate common forms of colorblindness.
 }
 \examples{
 \dontrun{

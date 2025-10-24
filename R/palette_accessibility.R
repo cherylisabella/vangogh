@@ -1,6 +1,6 @@
 #' @importFrom methods as
 if (getRversion() >= "2.15.1") utils::globalVariables(
-  c("x", "y", "hex", "palette", "color_index", "fill_col")
+  c("x", "y", "hex", "palette", "color_index", "fill_col", "cvd_type")
 )
 
 # palette_accessibility.R
@@ -14,7 +14,7 @@ if (getRversion() >= "2.15.1") utils::globalVariables(
 
 #' Check palette accessibility with colorblind simulations
 #'
-#' Uses `colorblindr` to simulate common forms of colorblindness.
+#' Uses `colorspace` to simulate common forms of colorblindness.
 #'
 #' @param name Palette name (character)
 #' @param type Either "discrete" or "continuous" (default "discrete")
@@ -25,23 +25,58 @@ if (getRversion() >= "2.15.1") utils::globalVariables(
 #' vangogh::check_palette("StarryNight")
 #' }
 check_palette <- function(name, type = "discrete", n = NULL) {
-  if (!requireNamespace("colorblindr", quietly = TRUE)) {
-    stop("Please install the 'colorblindr' package to use this function.")
+  if (!requireNamespace("colorspace", quietly = TRUE)) {
+    stop("Please install the 'colorspace' package to use this function.")
   }
-
+  if (!requireNamespace("ggplot2", quietly = TRUE)) {
+    stop("Please install the 'ggplot2' package to use this function.")
+  }
+  
   pal <- vangogh::safe_vangogh_palette(name, type = type, n = n)
-  pal_df <- data.frame(x = seq_along(pal), y = 1, col = pal, hex = pal)
-
-  gg <- ggplot2::ggplot(pal_df, ggplot2::aes(.data$x, .data$y, fill = .data$col)) +
+  
+  # Create CVD simulations
+  cvd_types <- c("Original", "Deuteranopia", "Protanopia", "Tritanopia")
+  df_list <- lapply(cvd_types, function(cvd) {
+    if (cvd == "Original") {
+      cols <- pal
+    } else if (cvd == "Deuteranopia") {
+      cols <- colorspace::deutan(pal)
+    } else if (cvd == "Protanopia") {
+      cols <- colorspace::protan(pal)
+    } else if (cvd == "Tritanopia") {
+      cols <- colorspace::tritan(pal)
+    }
+    
+    data.frame(
+      x = seq_along(cols),
+      y = 1,
+      col = cols,
+      hex = pal,
+      cvd_type = cvd,
+      stringsAsFactors = FALSE
+    )
+  })
+  
+  df <- do.call(rbind, df_list)
+  df$cvd_type <- factor(df$cvd_type, levels = cvd_types)
+  
+  gg <- ggplot2::ggplot(df, ggplot2::aes(.data$x, .data$y, fill = .data$col)) +
     ggplot2::geom_tile(color = "white") +
     ggplot2::scale_fill_identity() +
-    ggplot2::theme_void() +
+    ggplot2::facet_wrap(~.data$cvd_type, ncol = 2) +
+    ggplot2::theme_minimal() +
+    ggplot2::theme(
+      axis.title = ggplot2::element_blank(),
+      axis.text.y = ggplot2::element_blank(),
+      axis.ticks = ggplot2::element_blank(),
+      panel.grid = ggplot2::element_blank()
+    ) +
     ggplot2::coord_equal() +
     ggplot2::geom_text(ggplot2::aes(label = .data$hex, y = .data$y - 0.3),
                        color = "black", size = 3) +
     ggplot2::ggtitle(paste("Palette:", name))
-
-  colorblindr::cvd_grid(gg)
+  
+  gg
 }
 
 #' Generate a colorblind-safe Van Gogh palette
@@ -57,14 +92,14 @@ safe_vangogh_palette <- function(name, type = "discrete", n = NULL, colorblind =
   type <- match.arg(type, choices = c("discrete", "continuous"))
   pal <- vangogh::vangogh_palettes[[name]]
   if (is.null(pal)) stop("Unknown palette: ", name)
-
+  
   if (is.null(n)) n <- length(pal)
-
+  
   out <- switch(type,
                 continuous = vangogh::vangogh_interpolate(pal, n),
                 discrete = pal[seq_len(n)]
   )
-
+  
   out
 }
 
@@ -84,7 +119,58 @@ safe_vangogh_palette <- function(name, type = "discrete", n = NULL, colorblind =
 viz_palette <- function(name, show_hex = TRUE, colorblind = FALSE,
                         type = "discrete", n = NULL) {
   pal <- safe_vangogh_palette(name, type = type, n = n, colorblind = FALSE)
-
+  
+  if (colorblind && requireNamespace("colorspace", quietly = TRUE)) {
+    # Create CVD simulations
+    cvd_types <- c("Original", "Deuteranopia", "Protanopia", "Tritanopia")
+    df_list <- lapply(cvd_types, function(cvd) {
+      if (cvd == "Original") {
+        cols <- pal
+      } else if (cvd == "Deuteranopia") {
+        cols <- colorspace::deutan(pal)
+      } else if (cvd == "Protanopia") {
+        cols <- colorspace::protan(pal)
+      } else if (cvd == "Tritanopia") {
+        cols <- colorspace::tritan(pal)
+      }
+      
+      data.frame(
+        x = seq_along(cols),
+        y = 1,
+        fill_col = cols,
+        hex = pal,
+        cvd_type = cvd,
+        stringsAsFactors = FALSE
+      )
+    })
+    
+    df <- do.call(rbind, df_list)
+    df$cvd_type <- factor(df$cvd_type, levels = cvd_types)
+    
+    gg <- ggplot2::ggplot(df, ggplot2::aes(.data$x, .data$y, fill = .data$fill_col)) +
+      ggplot2::geom_tile(color = "white") +
+      ggplot2::scale_fill_identity() +
+      ggplot2::facet_wrap(~.data$cvd_type, ncol = 2) +
+      ggplot2::theme_minimal() +
+      ggplot2::theme(
+        axis.title = ggplot2::element_blank(),
+        axis.text.y = ggplot2::element_blank(),
+        axis.ticks = ggplot2::element_blank(),
+        panel.grid = ggplot2::element_blank()
+      ) +
+      ggplot2::coord_equal()
+    
+    if (show_hex) {
+      gg <- gg + ggplot2::geom_text(
+        ggplot2::aes(label = .data$hex, y = .data$y - 0.3),
+        color = "black", size = 3
+      )
+    }
+    
+    return(gg)
+  }
+  
+  # Standard visualization without CVD simulation
   df <- data.frame(
     x = seq_along(pal),
     y = 1,
@@ -92,24 +178,20 @@ viz_palette <- function(name, show_hex = TRUE, colorblind = FALSE,
     hex = pal,
     stringsAsFactors = FALSE
   )
-
+  
   gg <- ggplot2::ggplot(df, ggplot2::aes(.data$x, .data$y, fill = .data$fill_col)) +
     ggplot2::geom_tile(color = "white") +
     ggplot2::scale_fill_identity() +
     ggplot2::theme_void() +
     ggplot2::coord_equal()
-
+  
   if (show_hex) {
     gg <- gg + ggplot2::geom_text(
       ggplot2::aes(label = .data$hex, y = .data$y - 0.3),
       color = "black", size = 3
     )
   }
-
-  if (colorblind && requireNamespace("colorblindr", quietly = TRUE)) {
-    return(colorblindr::cvd_grid(gg))
-  }
-
+  
   gg
 }
 
@@ -187,6 +269,61 @@ vangogh_colors <- function(n = NULL, type = "discrete", colorblind = FALSE, add_
 #' @export
 #' @importFrom rlang .data
 compare_palettes <- function(palettes, show_hex = TRUE, colorblind = FALSE, type = "discrete", n = NULL) {
+  if (colorblind && requireNamespace("colorspace", quietly = TRUE)) {
+    # Create CVD simulations for comparison
+    cvd_types <- c("Original", "Deuteranopia", "Protanopia", "Tritanopia")
+    df_list <- lapply(palettes, function(pal_name) {
+      cols_orig <- safe_vangogh_palette(pal_name, type = type, n = n)
+      
+      cvd_list <- lapply(cvd_types, function(cvd) {
+        if (cvd == "Original") {
+          cols <- cols_orig
+        } else if (cvd == "Deuteranopia") {
+          cols <- colorspace::deutan(cols_orig)
+        } else if (cvd == "Protanopia") {
+          cols <- colorspace::protan(cols_orig)
+        } else if (cvd == "Tritanopia") {
+          cols <- colorspace::tritan(cols_orig)
+        }
+        
+        data.frame(
+          palette = pal_name,
+          color_index = seq_along(cols),
+          hex = cols_orig,
+          fill_col = cols,
+          cvd_type = cvd,
+          stringsAsFactors = FALSE
+        )
+      })
+      
+      do.call(rbind, cvd_list)
+    })
+    
+    df <- do.call(rbind, df_list)
+    df$cvd_type <- factor(df$cvd_type, levels = cvd_types)
+    
+    gg <- ggplot2::ggplot(df, ggplot2::aes(x = .data$color_index, y = .data$cvd_type, fill = .data$fill_col)) +
+      ggplot2::geom_tile(color = "white") +
+      ggplot2::scale_fill_identity() +
+      ggplot2::facet_wrap(~.data$palette, scales = "free_x") +
+      ggplot2::theme_minimal() +
+      ggplot2::theme(
+        axis.title = ggplot2::element_blank(),
+        axis.ticks = ggplot2::element_blank(),
+        panel.grid = ggplot2::element_blank()
+      )
+    
+    if (show_hex) {
+      gg <- gg + ggplot2::geom_text(
+        ggplot2::aes(label = .data$hex, y = .data$cvd_type),
+        color = "black", size = 2.5
+      )
+    }
+    
+    return(gg)
+  }
+  
+  # Standard comparison without CVD simulation
   df_list <- lapply(palettes, function(pal_name) {
     cols <- safe_vangogh_palette(pal_name, type = type, n = n)
     data.frame(
@@ -198,7 +335,7 @@ compare_palettes <- function(palettes, show_hex = TRUE, colorblind = FALSE, type
     )
   })
   df <- do.call(rbind, df_list)
-
+  
   gg <- ggplot2::ggplot(df, ggplot2::aes(x = .data$color_index, y = 1, fill = .data$fill_col)) +
     ggplot2::geom_tile(color = "white") +
     ggplot2::scale_fill_identity() +
@@ -209,18 +346,14 @@ compare_palettes <- function(palettes, show_hex = TRUE, colorblind = FALSE, type
       axis.text.y = ggplot2::element_blank(),
       axis.ticks = ggplot2::element_blank()
     )
-
+  
   if (show_hex) {
     gg <- gg + ggplot2::geom_text(
       ggplot2::aes(label = .data$hex, y = 0.5),
       color = "black", size = 3
     )
   }
-
-  if (colorblind && requireNamespace("colorblindr", quietly = TRUE)) {
-    return(colorblindr::cvd_grid(gg))
-  }
-
+  
   gg
 }
 
@@ -262,7 +395,7 @@ vangogh_suggest <- function(n = 5, type = "discrete") {
 vangogh_export <- function(file, format = c("json", "csv"), n = NULL, type = "discrete", add_metadata = FALSE) {
   format <- match.arg(format)
   df <- vangogh::vangogh_colors(n = n, type = type, add_metadata = add_metadata)
-
+  
   if (format == "json") {
     if (!requireNamespace("jsonlite", quietly = TRUE)) stop("Install 'jsonlite' to export JSON")
     jsonlite::write_json(df, file, pretty = TRUE)

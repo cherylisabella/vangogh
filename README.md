@@ -4,6 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/vangogh)](https://cran.r-project.org/package=vangogh)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17511534.svg)](https://doi.org/10.5281/zenodo.17511534)
 
 An R package for painterly colour palettes inspired by Vincent van Gogh's artworks. The `vangogh` package provides ggplot2-compatible colour palettes derived from the artist's most iconic paintings, with tools for accessibility, visualisation, and data export.
 
